@@ -4,13 +4,44 @@
 //Importing essential packages
 import java.io.*;
 import java.util.*;
+import java.awt.*;
+import javax.swing.JFrame;
 
 public class motifFinder {
     public static void main(String[] args) throws FileNotFoundException {
+        
+        String file1Path, file2Path;
+        Boolean invalidInput = false;
+        Scanner scan = new Scanner(System.in);
+
+        do{
+            //Allowing the user to choose the .txt files
+            invalidInput = false;
+            file1Path = "";
+            file2Path = "";
+            System.out.println("Please choose the first .txt file.");
+            file1Path = chooseFile();
+            System.out.println("Please choose the second .txt file.");
+            file2Path = chooseFile();
+
+            //Preventing an invalid path by restarting the program if that's the case
+            if (file1Path.equals(null) || file2Path.equals(null) || !(file1Path.contains(".txt")) || !(file2Path.contains(".txt"))){
+                invalidInput = true;
+                System.out.println("You inputed an invalid file.");
+
+                //Asking if the user wants to try again selecting two .txt files
+                System.out.println("\nDo you want to try again? Enter \"No\" if you do not. Otherwise, enter any key to try again.");
+                String input = scan.nextLine().toLowerCase();
+                if (input.contains("no")) {
+                    System.exit(0);
+                }
+                System.out.println("\nRemember: Select two .txt files. No other file format can be read.");
+            }
+        }while(invalidInput);
         try {
             //Designating which files Scanner needs to read
-            File book1 = new File("C:\\Users\\aravd.000\\Desktop\\TEWWG.txt");
-            File book2 = new File("C:\\Users\\aravd.000\\Desktop\\AgeOfInnocence.txt");
+            File book1 = new File(file1Path);
+            File book2 = new File(file2Path);
             
             //Changing where the print statements output to (instead of the console)
             PrintStream outputFile = new PrintStream(new File("Output.txt"));
@@ -45,6 +76,7 @@ public class motifFinder {
                 //Editing the word to remove all punctuation and numbers as well as making the words lowercase
                 word = word.replaceAll("\\p{Punct}", "");
                 word = word.replaceAll("\\p{Digit}", "");
+                //word = word.replace()
                 word = word.toLowerCase();
 
                 if (wordsInBook2.containsKey(word)) {
@@ -91,10 +123,17 @@ public class motifFinder {
             for (Map.Entry<String, Integer> pair : sortingWordsInBook2.entrySet()) {
                 System.out.println(pair.getKey() + " ⟶  " + pair.getValue());
             }
+            System.exit(0);
         
-        //Catch block informs me as to what errors are arising 
+        //Catch block explains which errors are arising
         } catch (Exception e) {
             e.printStackTrace();
         }
+        scan.close();
+    }
+    public static String chooseFile() {
+        FileDialog choose = new FileDialog(new JFrame());
+        choose.setVisible(true);
+        return choose.getDirectory() + choose.getFile();
     }
 }
