@@ -7,7 +7,7 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.JFrame;
 
-public class motifFinder {
+public class MotifFinder {
     public static void main(String[] args) throws FileNotFoundException {
         
         String file1Path, file2Path;

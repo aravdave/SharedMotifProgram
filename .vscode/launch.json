@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - MotifFinder",
+            "request": "launch",
+            "mainClass": "MotifFinder",
+            "projectName": "Shared-Motif-Finder_c269df08"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
